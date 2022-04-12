@@ -31,7 +31,9 @@ def linear_search(seq, num):
         "count": count
     }
     return dict_out
+
 # O(n)
+
 
 def pattern_search(seq, pattern):
     positions = set()
@@ -53,7 +55,6 @@ def pattern_search(seq, pattern):
         left_index = left_index + 1
         rigth_index = rigth_index + 1
 
-
     return positions
 
 # 1 + 1 + 1 + 1 + (n-m) + (n-m) + (n-m)m + (n-m)m + (n-m)m + (n-m) + (n-m) + 1 =
@@ -62,6 +63,31 @@ def pattern_search(seq, pattern):
 # O(mn)
 # n = len(seq), m = len(pattern)
 # nemusi se rozepisovat, jen se podivat, kolikrat bezi nejvnitrnejsi cyklus
+
+
+def binary_search(seq, num_to_find):
+    left_index = 0
+    right_index = len(seq) - 1
+
+    while left_index <= right_index:
+        middle = (left_index + right_index) // 2
+
+        if seq[middle] == num_to_find:
+            return middle
+
+        elif seq[middle] < num_to_find:
+            left_index = middle + 1
+
+        elif seq[middle] > num_to_find:
+            right_index = middle - 1
+
+    return None
+
+# n = 2^k - 1
+# n + 1 = 2^k
+# k = log(n+1) ... log o zakladu 2
+# log(n) x log(1)
+# O(log(n))
 
 
 def main():
@@ -75,6 +101,9 @@ def main():
     positions = pattern_search(dna_sequence, "ATA")
     print(positions)
 
+    ordered_numbers = read_data('sequential.json', 'ordered_numbers')
+    idx_out = binary_search(ordered_numbers, 13)
+    print(idx_out)
 
 
 if __name__ == '__main__':
